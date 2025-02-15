@@ -1,7 +1,7 @@
 {
   "name": "cursor-rules-huasheng",
-  "displayName": "花生: 中文 Cursor Rules",
-  "description": "YouTube/B站博主 AI进化论-花生出品的Cursor rules插件，自动帮你创建中文.cursorrules文件",
+  "displayName": "蒲公英: 中文 Cursor Rules",
+  "description": "YouTube/B站博主 AI进化论-蒲公英出品的Cursor rules插件，自动帮你创建中文.cursorrules文件",
   "version": "0.0.7",
   "icon": "images/icon.png",
   "author": {
@@ -21,7 +21,8 @@
   },
   "publisher": "huasheng",
   "engines": {
-    "vscode": "^1.93.0"
+    "vscode": "^1.93.0",
+    "cursor": "^0.2.0"
   },
   "categories": [
     "Other",
@@ -29,6 +30,7 @@
     "Snippets"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "onCommand:cursor-rules-huasheng.addRules",
     "onCommand:cursor-rules-huasheng.createRule",
     "onCommand:cursor-rules-huasheng.editRule",
@@ -39,19 +41,19 @@
     "commands": [
       {
         "command": "cursor-rules-huasheng.addRules",
-        "title": "花生: 添加 Cursor 规则文件"
+        "title": "蒲公英: 添加 Cursor 规则文件"
       },
       {
         "command": "cursor-rules-huasheng.createRule",
-        "title": "花生: 创建新的规则类型"
+        "title": "蒲公英: 创建新的规则类型"
       },
       {
         "command": "cursor-rules-huasheng.editRule",
-        "title": "花生: 编辑现有规则"
+        "title": "蒲公英: 编辑现有规则"
       },
       {
         "command": "cursor-rules-huasheng.deleteRule",
-        "title": "花生: 删除规则类型"
+        "title": "蒲公英: 删除规则类型"
       }
     ],
     "menus": {
@@ -91,5 +93,6 @@
   "homepage": "https://github.com/alchaincyf/cursor-rules-huasheng/blob/main/README.md",
   "bugs": {
     "url": "https://github.com/alchaincyf/cursor-rules-huasheng/issues"
-  }
+  },
+  "extensionKind": ["ui", "workspace"]
 }

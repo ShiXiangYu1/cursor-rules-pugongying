@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 AI进化论-花生
+Copyright (c) 2025 AI进化论-蒲公英
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
