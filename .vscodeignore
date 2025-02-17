@@ -18,5 +18,9 @@ images/**/*.psd
 webpack.config.js
 
 # 不忽略这些文件
-!out/**
+!out/**/*.js
 !rules/**
+!images/**/*.png
+!images/**/*.jpg
+!images/**/*.jpeg
+!images/icon.png
