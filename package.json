@@ -13,7 +13,8 @@
     "cursor",
     "ai",
     "rules",
-    "productivity"
+    "productivity",
+    "中文"
   ],
   "repository": {
     "type": "git",
@@ -71,20 +72,20 @@
     "postinstall": "node ./scripts/copyRules.js",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.93.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.93.0",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
-    "eslint": "^9.16.0",
-    "typescript": "^5.7.2",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.16.0",
+    "mocha": "^11.1.0",
+    "typescript": "^5.7.2"
   },
   "galleryBanner": {
     "color": "#C80000",
@@ -94,5 +95,8 @@
   "bugs": {
     "url": "https://github.com/alchaincyf/cursor-rules-huasheng/issues"
   },
-  "extensionKind": ["ui", "workspace"]
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ]
 }

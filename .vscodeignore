@@ -1,16 +1,21 @@
 .vscode/**
 .vscode-test/**
-src/**
+test/**
 .gitignore
 .yarnrc
-webpack.config.js
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
 **/*.ts
-.cursor-rules/**
+.git/**
+node_modules/**
 scripts/**
+images/**/*.psd
+**/*.vsix
+.github/**
+.eslintrc.js
+webpack.config.js
 
 # 不忽略这些文件
 !out/**
