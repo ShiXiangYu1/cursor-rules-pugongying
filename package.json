@@ -1,12 +1,12 @@
 {
-  "name": "cursor-rules-huasheng",
+  "name": "cursor-rules-pugongying",
   "displayName": "蒲公英: 中文 Cursor Rules",
   "description": "YouTube/B站博主 AI进化论-蒲公英出品的Cursor rules插件，自动帮你创建中文.cursorrules文件",
   "version": "0.0.7",
   "icon": "images/icon.png",
   "author": {
-    "name": "huasheng",
-    "url": "https://www.huasheng.ai"
+    "name": "pugongying",
+    "url": "https://www.pugongying.ai"
   },
   "license": "MIT",
   "keywords": [
@@ -32,35 +32,35 @@
   ],
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:cursor-rules-huasheng.addRules",
-    "onCommand:cursor-rules-huasheng.createRule",
-    "onCommand:cursor-rules-huasheng.editRule",
-    "onCommand:cursor-rules-huasheng.deleteRule"
+    "onCommand:cursor-rules-pugongying.addRules",
+    "onCommand:cursor-rules-pugongying.createRule",
+    "onCommand:cursor-rules-pugongying.editRule",
+    "onCommand:cursor-rules-pugongying.deleteRule"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "cursor-rules-huasheng.addRules",
+        "command": "cursor-rules-pugongying.addRules",
         "title": "蒲公英: 添加 Cursor 规则文件"
       },
       {
-        "command": "cursor-rules-huasheng.createRule",
+        "command": "cursor-rules-pugongying.createRule",
         "title": "蒲公英: 创建新的规则类型"
       },
       {
-        "command": "cursor-rules-huasheng.editRule",
+        "command": "cursor-rules-pugongying.editRule",
         "title": "蒲公英: 编辑现有规则"
       },
       {
-        "command": "cursor-rules-huasheng.deleteRule",
+        "command": "cursor-rules-pugongying.deleteRule",
         "title": "蒲公英: 删除规则类型"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "cursor-rules-huasheng.addRules",
+          "command": "cursor-rules-pugongying.addRules",
           "group": "2_workspace",
           "when": "explorerResourceIsFolder"
         }

@@ -20,84 +20,49 @@ export function activate(context: vscode.ExtensionContext) {
 	// 注册命令
 	let disposables = [
 		// 原有的添加规则命令
-		vscode.commands.registerCommand('cursor-rules-huasheng.addRules', async (uri?: vscode.Uri) => {
+		vscode.commands.registerCommand('cursor-rules-pugongying.addRules', async () => {
 			try {
-				// 1. 获取目标路径
-				let targetFolder: string;
-				if (uri) {
-					targetFolder = uri.fsPath;
-				} else {
-					const workspaceFolders = vscode.workspace.workspaceFolders;
-					if (!workspaceFolders) {
-						vscode.window.showErrorMessage('请先打开一个项目文件夹！');
-						return;
-					}
-					targetFolder = workspaceFolders[0].uri.fsPath;
+				// 获取插件安装路径
+				const extension = vscode.extensions.getExtension('pugongying.cursor-rules-pugongying');
+				if (!extension) {
+					throw new Error('找不到插件');
 				}
 
-				// 2. 获取所有规则
-				const rules = await ruleManager.getAllRules();
+				// 检查工作区
+				const workspaceFolders = vscode.workspace.workspaceFolders;
+				if (!workspaceFolders) {
+					throw new Error('请先打开一个项目文件夹！');
+				}
+
+				// 构建规则文件路径
+				const rulesPath = path.join(extension.extensionPath, 'rules');
 				
-				// 3. 让用户选择规则
-				const selectedRule = await vscode.window.showQuickPick(
-					rules.map(rule => ({
-						label: rule.name,
-						description: rule.description,
-						detail: '点击添加规则',
-						rule: rule
-					})), {
-						placeHolder: '选择要添加的规则类型',
-					}
-				);
+				// 选择规则类型
+				const ruleTypes = fs.readdirSync(rulesPath);
+				const selectedType = await vscode.window.showQuickPick(ruleTypes, {
+					placeHolder: '选择规则类型'
+				});
 
-				if (!selectedRule) {
+				if (!selectedType) {
 					return;
 				}
 
-				// 4. 确认添加
-				const confirmed = await confirmAction(`是否要添加 ${selectedRule.label} 的 Cursor 规则？`);
-				if (!confirmed) {
-					return;
+				// 获取源文件和目标文件路径
+				const sourcePath = path.join(rulesPath, selectedType, '.cursorrules');
+				const targetPath = path.join(workspaceFolders[0].uri.fsPath, '.cursorrules');
+
+				// 复制文件
+				const success = await copyRuleFile(sourcePath, targetPath);
+				if (success) {
+					vscode.window.showInformationMessage('规则添加成功！');
 				}
-
-				// 5. 处理规则文件
-				const targetPath = path.join(targetFolder, '.cursorrules');
-				const sourcePath = path.join(context.extensionPath, 'rules', selectedRule.label, '.cursorrules');
-
-				if (fs.existsSync(targetPath)) {
-					const action = await vscode.window.showWarningMessage(
-						'目标目录已存在.cursorrules文件，请选择操作：',
-						'覆盖',
-						'合并',
-						'取消'
-					);
-
-					if (action === '取消' || !action) {
-						return;
-					}
-
-					if (action === '合并') {
-						const sourceContent = fs.readFileSync(sourcePath, 'utf8');
-						const targetContent = fs.readFileSync(targetPath, 'utf8');
-						const mergedContent = `# 原有规则\n${targetContent}\n\n# 新增规则\n${sourceContent}`;
-						fs.writeFileSync(targetPath, mergedContent);
-						vscode.window.showInformationMessage(`成功合并 ${selectedRule.label} 的 Cursor 规则！`);
-						return;
-					}
-				}
-
-				fs.copyFileSync(sourcePath, targetPath);
-				vscode.window.showInformationMessage(`成功添加 ${selectedRule.label} 的 Cursor 规则！`);
-
-				RulePanel.show(context, rules);
-
-			} catch (error) {
-				vscode.window.showErrorMessage(`添加规则失败: ${error}`);
+			} catch (error: any) {
+				vscode.window.showErrorMessage(`添加规则失败: ${error.message}`);
 			}
 		}),
 
 		// 创建新规则命令
-		vscode.commands.registerCommand('cursor-rules-huasheng.createRule', async () => {
+		vscode.commands.registerCommand('cursor-rules-pugongying.createRule', async () => {
 			try {
 				const name = await vscode.window.showInputBox({
 					prompt: '输入新规则类型名称',
@@ -126,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}),
 
 		// 编辑规则命令
-		vscode.commands.registerCommand('cursor-rules-huasheng.editRule', async () => {
+		vscode.commands.registerCommand('cursor-rules-pugongying.editRule', async () => {
 			try {
 				const rules = await ruleManager.getAllRules();
 				const selectedRule = await vscode.window.showQuickPick(
@@ -152,7 +117,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}),
 
 		// 删除规则命令
-		vscode.commands.registerCommand('cursor-rules-huasheng.deleteRule', async () => {
+		vscode.commands.registerCommand('cursor-rules-pugongying.deleteRule', async () => {
 			try {
 				const rules = await ruleManager.getAllRules();
 				const customRules = rules.filter(r => !r.isBuiltin);
@@ -220,3 +185,25 @@ async function confirmAction(message: string): Promise<boolean> {
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
+
+async function copyRuleFile(sourcePath: string, targetPath: string) {
+	try {
+		// 确保源文件存在
+		if (!fs.existsSync(sourcePath)) {
+			throw new Error(`源规则文件不存在: ${sourcePath}`);
+		}
+
+		// 确保目标目录存在
+		const targetDir = path.dirname(targetPath);
+		if (!fs.existsSync(targetDir)) {
+			fs.mkdirSync(targetDir, { recursive: true });
+		}
+
+		// 复制文件
+		await fs.promises.copyFile(sourcePath, targetPath);
+		return true;
+	} catch (error: any) {
+		vscode.window.showErrorMessage(`复制规则文件失败: ${error.message}`);
+		return false;
+	}
+}
