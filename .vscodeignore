@@ -18,6 +18,8 @@ images/**/*.psd
 webpack.config.js
 
 # 不忽略这些文件
+!out/extension.js
+!out/ruleManager.js
 !out/**/*.js
 !rules/**
 !images/**/*.png
