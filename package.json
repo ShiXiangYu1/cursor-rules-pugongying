@@ -2,7 +2,7 @@
   "name": "cursor-rules-pugongying",
   "displayName": "蒲公英: 中文 Cursor Rules",
   "description": "[Cursor专用] AI进化论-蒲公英出品的Cursor rules插件，让你的AI更懂中文！",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "icon": "images/icon.png",
   "author": {
     "name": "pugongying",
@@ -29,7 +29,7 @@
   "publisher": "pugongying",
   "engines": {
     "vscode": "^1.93.0",
-    "cursor": "^0.2.0"
+    "cursor": "*"
   },
   "categories": [
     "Programming Languages",
@@ -38,8 +38,13 @@
     "Machine Learning",
     "Other"
   ],
-  "extensionDependencies": ["cursor.cursor"],
-  "extensionPack": ["cursor"],
+  "extensionKind": ["ui", "workspace"],
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "activationEvents": [
     "onStartupFinished",
     "onCommand:cursor-rules-pugongying.addRules",
@@ -104,9 +109,5 @@
   "homepage": "https://github.com/ShiXiangYu1/cursor-rules-pugongying",
   "bugs": {
     "url": "https://github.com/ShiXiangYu1/cursor-rules-pugongying/issues"
-  },
-  "extensionKind": [
-    "ui",
-    "workspace"
-  ]
+  }
 }
