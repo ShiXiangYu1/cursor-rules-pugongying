@@ -1,8 +1,8 @@
 {
   "name": "cursor-rules-pugongying",
   "displayName": "蒲公英: 中文 Cursor Rules",
-  "description": "YouTube/B站博主 AI进化论-蒲公英出品的Cursor rules插件，自动帮你创建中文.cursorrules文件",
-  "version": "0.0.7",
+  "description": "[Cursor专用] AI进化论-蒲公英出品的Cursor rules插件，让你的AI更懂中文！",
+  "version": "0.0.11",
   "icon": "images/icon.png",
   "author": {
     "name": "pugongying",
@@ -11,6 +11,12 @@
   "license": "MIT",
   "keywords": [
     "cursor",
+    "cursor-editor",
+    "cursorrules",
+    "cursor-rules",
+    "cursor-extension",
+    "cursor-plugin",
+    "cursor-ai",
     "ai",
     "rules",
     "productivity",
@@ -26,10 +32,14 @@
     "cursor": "^0.2.0"
   },
   "categories": [
-    "Other",
     "Programming Languages",
-    "Snippets"
+    "Snippets",
+    "AI",
+    "Machine Learning",
+    "Other"
   ],
+  "extensionDependencies": ["cursor.cursor"],
+  "extensionPack": ["cursor"],
   "activationEvents": [
     "onStartupFinished",
     "onCommand:cursor-rules-pugongying.addRules",
